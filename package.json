@@ -1,0 +1,24 @@
+{
+  "name": "iot-boilerplate-ctl",
+  "version": "1.0.0",
+  "license": "ISC",
+  "description": "JS Front control for IoT based on ESP32",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoiEf/IoT_Boiler_CTL.git"
+  },
+  "keywords": [],
+  "source": "src/index.js",
+  "scripts": {
+    "build": "microbundle -f modern --no-sourcemap -o build/bundle.js",
+    "dev": "npm run -s serve & npm run -s build --watch",
+    "serve": "sirv -Dq"
+  },
+  "dependencies": {
+    "preact": "^10.4.1"
+  },
+  "devDependencies": {
+    "microbundle": "^0.12.0",
+    "sirv-cli": "^0.4.5"
+  }
+}
