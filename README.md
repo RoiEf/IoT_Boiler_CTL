@@ -1,1 +1,4 @@
-# IoT_Boiler_CTL
+# Microbundle + Preact example
+
+## ToDo:
+Fix the "npm run dev" script.
