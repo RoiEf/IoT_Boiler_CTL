@@ -7,7 +7,14 @@
     "type": "git",
     "url": "git+https://github.com/RoiEf/IoT_Boiler_CTL.git"
   },
-  "keywords": [],
+  "keywords": [
+    "preact",
+    "microbundle",
+    "preact-router",
+    "example",
+    "SPA",
+    "PWA"
+  ],
   "source": "src/index.js",
   "scripts": {
     "build": "microbundle -f modern --no-sourcemap --external none -o build/bundle.js",

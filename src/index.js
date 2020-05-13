@@ -35,6 +35,13 @@ const App = () => {
           password={password}
           isAutenticated={isAutenticated}
         />
+        <Home
+          path="/build"
+          user={user}
+          password={password}
+          isAutenticated={isAutenticated}
+        />
+
         <Network
           path="/network"
           user={user}
