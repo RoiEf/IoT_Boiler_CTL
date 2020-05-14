@@ -18,8 +18,9 @@
   "source": "src/index.js",
   "scripts": {
     "build": "microbundle -f modern --no-sourcemap --external none -o build/bundle.js",
-    "dev": "npm run -s build --watch & npm run -s serve",
-    "serve": "sirv build -Dc"
+    "dev": "npm run -s build_dev & npm run -s serve",
+    "build_dev": "microbundle -f modern --external none -o build_dev/bundle.js --watch",
+    "serve": "sirv build_dev -Dc"
   },
   "dependencies": {
     "preact": "^10.4.1",
