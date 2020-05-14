@@ -1,13 +1,17 @@
 import { h } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useContext } from "preact/hooks";
 import { route } from "preact-router";
+import { AuthContext } from "../../context/authContext";
 
-const Login = (props) => {
+const Login = (/* props */) => {
+  const [state, setState] = useContext(AuthContext);
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
   const address = `http://${window.location.hostname}:${80}/login`;
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("address: ", address);
@@ -22,7 +26,8 @@ const Login = (props) => {
       .then((res) => {
         // console.log("login response: ", res);
         if (res.message === "Auth sucess") {
-          props.updateAuthData({ user: userName, password });
+          // props.updateAuthData({ user: userName, password });
+          setState(state => ({ user: userName, password, isAutenticated: true }));
           setError(false);
           route("/", true);
         } else {

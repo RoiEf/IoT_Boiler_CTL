@@ -1,8 +1,11 @@
 import { h /*, Fragment */ } from "preact";
 import { Link } from "preact-router/match";
-// import style from "./style.css";
+// import { useContext } from 'preact/hooks';
+// import { AuthContext } from "../../context/authContext";
 
 const Header = (/* props */) => {
+  // const [state, setState] = useContext(AuthContext);
+
   return (
     <header id="header">
       <h1>Preact App with Microbundle</h1>
@@ -10,9 +13,9 @@ const Header = (/* props */) => {
         <Link href="/">
           Home
         </Link>
-        {/* part of the program {props.isAutenticated ? (
-			<Fragment> */}
-        {/* <Link activeClassName={style.active} href="/iot">
+        {/* part of the program {state.isAutenticated ? (
+			<Fragment> 
+         <Link href="/iot">
           IoT Specifics
         </Link> */}
         <Link href="/network">
@@ -26,8 +29,6 @@ const Header = (/* props */) => {
           Login
         </Link>
         {/* part of the program )} */}
-        {/* part of the example <Link activeClassName={style.active} href="/profile">Me</Link>
-			<Link activeClassName={style.active} href="/profile/john">John</Link> */}
       </nav>
     </header>
   );

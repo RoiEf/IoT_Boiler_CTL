@@ -1,25 +1,29 @@
 import { h } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useContext } from "preact/hooks";
 // import { route } from 'preact-router';
+import { AuthContext } from "../../context/authContext";
+
 // import styles from "../style/styles.css";
 // import style from "./network/style";
 
 const address = `http://${window.location.hostname}:${80}/network`;
 
-const Network = (props) => {
+const Network = (/* props */) => {
   const [ssid, updateSSID] = useState("base_iot");
   const [wifiPassword, updatePassword] = useState("");
+  const [state, setState] = useContext(AuthContext);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    if (props.isAutenticated) {
+    if (state.isAutenticated) {
       fetch(address, {
         method: "post",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          userName: props.user,
-          password: props.password,
+          userName: state.user,
+          password: state.password,
           cmd: "update",
           ssid,
           wifiPassword,
@@ -34,7 +38,7 @@ const Network = (props) => {
   };
 
   useEffect(() => {
-    if (props.isAutenticated) {
+    if (state.isAutenticated) {
       console.log("Fetching data Network");
       fetch(address, {
         method: "post",
@@ -42,8 +46,8 @@ const Network = (props) => {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          userName: props.user,
-          password: props.password,
+          userName: state.user,
+          password: state.password,
         }),
       })
         .then((res) => res.json())
@@ -54,7 +58,7 @@ const Network = (props) => {
         })
         .catch((error) => console.log("something failed", error));
     }
-  }, [props.isAutenticated, props.user, props.password]);
+  }, [state.isAutenticated, state.user, state.password]);
 
   return (
     <div id="basePage">

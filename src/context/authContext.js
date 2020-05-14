@@ -1,4 +1,4 @@
-import { createContext } from "preact";
+import { h, createContext } from "preact";
 import { useState } from "preact/hooks";
 
 const AuthContext = createContext([{}, () => { }]);

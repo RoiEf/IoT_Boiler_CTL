@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useContext } from 'preact/hooks/src';
+import { useContext } from 'preact/hooks';
 import { AuthContext } from "../../context/authContext";
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
 	return (
 		<footer id="footer">
 			<p>{loca}</p>
-			<p>{state}</p>
+			<p>{state.isAutenticated ? <p>Logged as: {state.user}</p> : <p>Not logged in.</p>}</p>
 		</footer>
 	);
 };
