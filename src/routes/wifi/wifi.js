@@ -3,12 +3,10 @@ import { useState, useEffect, useContext } from "preact/hooks";
 // import { route } from 'preact-router';
 import { AuthContext } from "../../context/authContext";
 
-// import styles from "../style/styles.css";
-// import style from "./network/style";
-
+import Save from "../../components/save/save";
 const address = `http://${window.location.hostname}:${80}/network`;
 
-const Network = (/* props */) => {
+const WiFi = (/* props */) => {
   const [ssid, updateSSID] = useState("base_iot");
   const [wifiPassword, updatePassword] = useState("");
   const [state, setState] = useContext(AuthContext);
@@ -63,13 +61,10 @@ const Network = (/* props */) => {
   return (
     <div id="basePage">
       <div id="topHeader">
-        <h1>Network Settings</h1>
-      </div>
-      <div id="contentBox">
-        <h1>Basic Settings</h1>
-      </div>
-      <div id="contentBox">
         <h1>WiFi Settings</h1>
+      </div>
+      <div id="contentBox">
+        <h1>Basic WiFi Settings</h1>
         <form onSubmit={onSubmit}>
           <p>
             <input
@@ -93,8 +88,9 @@ const Network = (/* props */) => {
       <div id="contentBox">
         <h1>IP Settings</h1>
       </div>
+      <Save />
     </div>
   );
 };
 
-export default Network;
+export default WiFi;
