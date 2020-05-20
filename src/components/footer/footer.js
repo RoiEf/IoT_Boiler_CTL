@@ -1,22 +1,16 @@
-import { h } from "preact";
-import { useContext } from "preact/hooks";
-import { StateContext } from "../../context/stateContext";
+import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { AuthContext } from "../../context/authContext";
 
 const Footer = () => {
-  const loca = `${window.location.hostname}`;
-  const [state, setState] = useContext(StateContext);
-  return (
-    <footer id="footer">
-      <p>{loca}</p>
-      <p>
-        {state.auth.isAutenticated ? (
-          <p>Logged as: {state.auth.user}</p>
-        ) : (
-          <p>Not logged in.</p>
-        )}
-      </p>
-    </footer>
-  );
+	const loca = `${window.location.hostname}`;
+	const [state, setState] = useContext(AuthContext);
+	return (
+		<footer id="footer">
+			<p>{loca}</p>
+			<p>{state.isAutenticated ? <p>Logged as: {state.user}</p> : <p>Not logged in.</p>}</p>
+		</footer>
+	);
 };
 
 export default Footer;
