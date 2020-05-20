@@ -1,12 +1,12 @@
 import { useContext } from "preact/hooks";
 import { StateContext } from "./stateContext";
 
-const address = `http://${window.location.hostname}:${80}/basic`;
+const address = `http://${window.location.hostname}:${80}/wifi`;
 
-const useBasic = () => {
+const useWifi = () => {
   const [state, setState] = useContext(StateContext);
 
-  function getBasic() {
+  function getData() {
     fetch(address, {
       method: "post",
       headers: {
@@ -20,35 +20,21 @@ const useBasic = () => {
       .then((res) => res.json())
       .then((res) => {
         console.log("res: ", res);
-        if (res.device_mode === "AP") {
-          setState((state) => ({
-            ...state,
-            basic: {
-              wifiAP: true,
-              lora: false,
-              lan: false,
-              bt: false,
-              serial: false,
-            },
-          })); //true
-        } else {
-          console.log("Updating basic state Wifi = STA");
-          setState((state) => ({
-            ...state,
-            basic: {
-              wifiAP: false,
-              lora: false,
-              lan: false,
-              bt: false,
-              serial: false,
-            },
-          })); //false
-        }
+        setState((state) => ({
+          ...state,
+          wifi: {
+            SSID: res.ssid,
+            wifiPassword: res.wifiPassword,
+          },
+        }));
       })
       .catch((error) => console.log("something failed", error));
   }
-  function saveBasic(obj) {
-    setState((state) => ({ ...state, basic: { wifiAP: obj.wifiAP } }));
+  function saveData(obj) {
+    setState((state) => ({
+      ...state,
+      wifi: { SSID: obj.SSID, wifiPassword: obj.wifiPassword },
+    }));
     fetch(address, {
       method: "post",
       headers: {
@@ -57,7 +43,8 @@ const useBasic = () => {
       body: JSON.stringify({
         userName: state.auth.user,
         password: state.auth.password,
-        device_mode: obj.wifiAP,
+        ssid: obj.SSID,
+        wifiPassword: obj.wifiPassword,
         cmd: "update",
       }),
     })
@@ -67,7 +54,12 @@ const useBasic = () => {
       })
       .catch((error) => console.log("something failed", error));
   }
-  return { getBasic, saveBasic, wifiAP: state.basic.wifiAP };
+  return {
+    getData,
+    saveData,
+    SSID: state.wifi.SSID,
+    wifiPassword: state.wifi.wifiPassword,
+  };
 };
 
-export default useBasic;
+export default useWifi;
