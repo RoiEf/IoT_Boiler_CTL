@@ -23,7 +23,7 @@
     "serve": "sirv build_dev -Dc"
   },
   "dependencies": {
-    "preact": "^10.4.1",
+    "preact": "^10.4.4",
     "preact-router": "^3.2.1"
   },
   "devDependencies": {
