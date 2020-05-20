@@ -1,10 +1,10 @@
 import { h } from "preact";
 import { useState, useContext } from "preact/hooks";
 import { route } from "preact-router";
-import { AuthContext } from "../../context/authContext";
+import { StateContext } from "../../context/stateContext";
 
 const Login = (/* props */) => {
-  const [state, setState] = useContext(AuthContext);
+  const [state, setState] = useContext(StateContext);
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,11 @@ const Login = (/* props */) => {
         // console.log("login response: ", res);
         if (res.message === "Auth sucess") {
           // props.updateAuthData({ user: userName, password });
-          setState(state => ({ user: userName, password, isAutenticated: true }));
+
+          setState((state) => ({
+            ...state,
+            auth: { user: userName, password, isAutenticated: true },
+          }));
           setError(false);
           route("/", true);
         } else {

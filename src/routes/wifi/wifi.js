@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { useState, useEffect, useContext } from "preact/hooks";
 // import { route } from 'preact-router';
-import { AuthContext } from "../../context/authContext";
+import { StateContext } from "../../context/stateContext";
 
 import Save from "../../components/save/save";
 const address = `http://${window.location.hostname}:${80}/network`;
@@ -9,19 +9,19 @@ const address = `http://${window.location.hostname}:${80}/network`;
 const WiFi = (/* props */) => {
   const [ssid, updateSSID] = useState("base_iot");
   const [wifiPassword, updatePassword] = useState("");
-  const [state, setState] = useContext(AuthContext);
+  const [state, setState] = useContext(StateContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (state.isAutenticated) {
+    if (state.auth.isAutenticated) {
       fetch(address, {
         method: "post",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          userName: state.user,
-          password: state.password,
+          userName: state.auth.user,
+          password: state.auth.password,
           cmd: "update",
           ssid,
           wifiPassword,
@@ -36,7 +36,7 @@ const WiFi = (/* props */) => {
   };
 
   useEffect(() => {
-    if (state.isAutenticated) {
+    if (state.auth.isAutenticated) {
       console.log("Fetching data Network");
       fetch(address, {
         method: "post",
@@ -44,8 +44,8 @@ const WiFi = (/* props */) => {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          userName: state.user,
-          password: state.password,
+          userName: state.auth.user,
+          password: state.auth.password,
         }),
       })
         .then((res) => res.json())
@@ -56,7 +56,7 @@ const WiFi = (/* props */) => {
         })
         .catch((error) => console.log("something failed", error));
     }
-  }, [state.isAutenticated, state.user, state.password]);
+  }, [state.auth.isAutenticated, state.auth.user, state.auth.password]);
 
   return (
     <div id="basePage">

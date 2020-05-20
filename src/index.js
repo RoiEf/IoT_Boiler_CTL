@@ -17,29 +17,29 @@ import WiFi from "./routes/wifi";
 import Updates from "./routes/updates";
 import Login from "./routes/login";
 
-import { AuthContextProvider } from "./context/authContext";
-import { BasicContextProvider } from "./context/basicContext";
+import { StateContextProvider } from "./context/stateContext";
+// import { BasicContextProvider } from "./context/basicContext";
 
 const App = () => {
   return (
-    <AuthContextProvider>
-      <BasicContextProvider>
-        <div id="app">
-          {/* <Header isAutenticated={isAutenticated} /> */}
-          <Header />
-          <Router>
-            <Home path="/" />
-            <Home path="/build" />
-            <Basic path="/basic" />
-            <WiFi path="/wifi" />
-            <Updates path="/updates" />
-            {/* <Login path="/login" updateAuthData={updateAuthData} /> */}
-            <Login path="/login" />
-          </Router>
-          <Footer />
-        </div>
-      </BasicContextProvider>
-    </AuthContextProvider>
+    <StateContextProvider>
+      {/* <BasicContextProvider> */}
+      <div id="app">
+        {/* <Header isAutenticated={isAutenticated} /> */}
+        <Header />
+        <Router>
+          <Home path="/" />
+          <Home path="/build" />
+          <Basic path="/basic" />
+          <WiFi path="/wifi" />
+          <Updates path="/updates" />
+          {/* <Login path="/login" updateAuthData={updateAuthData} /> */}
+          <Login path="/login" />
+        </Router>
+        <Footer />
+      </div>
+      {/* </BasicContextProvider> */}
+    </StateContextProvider>
   );
 };
 

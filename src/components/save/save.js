@@ -3,11 +3,9 @@ import { h } from "preact";
 
 const Save = () => {
   return (
-    <div id="contentBox">
-      <p class="submit">
-        <input type="submit" name="commit" value="Login" />
-      </p>
-    </div>
+    <p class="submit">
+      <input type="submit" name="commit" value="Save" />
+    </p>
   );
 };
 
