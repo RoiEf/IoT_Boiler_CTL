@@ -16,26 +16,6 @@ const WiFi = (/* props */) => {
   const onSubmit = (e) => {
     e.preventDefault();
     saveData({ SSID: ssid, wifiPassword: password });
-    // if (state.auth.isAutenticated) {
-    //   fetch(address, {
-    //     method: "post",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       userName: state.auth.user,
-    //       password: state.auth.password,
-    //       cmd: "update",
-    //       ssid,
-    //       wifiPassword,
-    //     }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       console.log("network response: ", res);
-    //     })
-    //     .catch((error) => console.log("something failed", error));
-    // }
   };
 
   useEffect(() => {
@@ -43,26 +23,6 @@ const WiFi = (/* props */) => {
     getData();
     updateSSID(SSID);
     updatePassword(wifiPassword);
-    // if (state.auth.isAutenticated) {
-    //   console.log("Fetching data Network");
-    //   fetch(address, {
-    //     method: "post",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       userName: state.auth.user,
-    //       password: state.auth.password,
-    //     }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       updateSSID(res.ssid);
-    //       updatePassword(res.wifiPassword);
-    //       console.log("res: ", res);
-    //     })
-    //     .catch((error) => console.log("something failed", error));
-    // }
   }, [SSID, wifiPassword]);
 
   return (
