@@ -11,8 +11,8 @@ const Updates = () => {
     e.preventDefault();
     const formData = new FormData();
     console.log("FormData created");
-    formData.append("firmFile", firmFile, firmFileName);
-    console.log("FormData appended");
+    formData.set("firmFile", firmFile, firmFileName);
+    console.log("FormData set");
     fetch(address, { method: "post", body: formData }).catch(console.error);
     console.log("Fetch sent");
   };
