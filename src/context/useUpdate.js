@@ -8,19 +8,21 @@ const useUpdate = () => {
 
   function saveData(obj) {
     if (state.auth.isAutenticated) {
+      // fetch(address, { method: "post", body: formData }).catch(console.error);
       fetch(address, {
         method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: state.auth.user,
-          password: state.auth.password,
-        }),
+        body: obj.body,
+        //   headers: {
+        //     "Content-type": "application/json",
+        // },
+        //   body: JSON.stringify({
+        //     userName: state.auth.user,
+        //     password: state.auth.password,
+        //   }),
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log("basic response: ", res);
+          console.log("Update response: ", res);
         })
         .catch((error) => console.log("something failed", error));
     }

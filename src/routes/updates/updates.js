@@ -1,26 +1,26 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
 
-const address = `http://${window.location.hostname}:${80}/updates/firmware`;
+import useUpdate from "../../context/useUpdate";
 
 const Updates = () => {
+  const { saveData } = useUpdate();
   const [firmFile, setfirmFile] = useState();
-  // const [firmFileName, setfirmFileName] = useState("Choose File");
 
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     console.log("FormData created");
-    formData.set("firmFile", firmFile, firmFile.name /* firmFileName */);
+    formData.set("firmFile", firmFile, firmFile.name);
     console.log("FormData set");
-    fetch(address, { method: "post", body: formData }).catch(console.error);
-    console.log("Fetch sent");
+    saveData({ body: formData });
+    // fetch(address, { method: "post", body: formData }).catch(console.error);
+    // console.log("Fetch sent");
+    console.log("saveData sent");
   };
   const handleChange = (e) => {
     console.log("file upload handle change: ", e.target.files[0]);
-    setfirmFile(e.target.files[0]); //{ file: URL.createObjectURL(e.target.files[0]) }
-    // setfirmFileName(e.target.files[0].name);
-    // console.log("file hook: ", firmFile);
+    setfirmFile(e.target.files[0]);
   };
   return (
     <div id="basePage">
