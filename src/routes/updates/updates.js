@@ -10,13 +10,13 @@ const Updates = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log("FormData created");
+    // console.log("FormData created");
     formData.set("firmFile", firmFile, firmFile.name);
-    console.log("FormData set");
-    saveData({ body: formData });
+    // console.log("FormData set");
+    saveData({ formData });
     // fetch(address, { method: "post", body: formData }).catch(console.error);
     // console.log("Fetch sent");
-    console.log("saveData sent");
+    // console.log("saveData sent");
   };
   const handleChange = (e) => {
     console.log("file upload handle change: ", e.target.files[0]);

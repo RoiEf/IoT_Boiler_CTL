@@ -8,17 +8,17 @@ const useUpdate = () => {
 
   function saveData(obj) {
     if (state.auth.isAutenticated) {
-      // fetch(address, { method: "post", body: formData }).catch(console.error);
+      obj.formData.append("userName", state.auth.user);
+      obj.formData.append("password", state.auth.password);
+
+      // const formData = new FormData();
+      // formData.append("userName", "admin");
+      // formData.append("password", "12345");
+
+      // console.log("userName", formData.get("userName"));
       fetch(address, {
         method: "post",
-        body: obj.body,
-        //   headers: {
-        //     "Content-type": "application/json",
-        // },
-        //   body: JSON.stringify({
-        //     userName: state.auth.user,
-        //     password: state.auth.password,
-        //   }),
+        body: obj.formData,
       })
         .then((res) => res.json())
         .then((res) => {
