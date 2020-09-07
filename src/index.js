@@ -15,6 +15,7 @@ import Home from "./routes/home";
 import Basic from "./routes/basic";
 import WiFi from "./routes/wifi";
 import Updates from "./routes/updates";
+import Admin from "./routes/admin";
 import Login from "./routes/login";
 
 import { StateContextProvider } from "./context/stateContext";
@@ -33,6 +34,7 @@ const App = () => {
           <Basic path="/basic" />
           <WiFi path="/wifi" />
           <Updates path="/updates" />
+          <Admin path="/admin" />
           {/* <Login path="/login" updateAuthData={updateAuthData} /> */}
           <Login path="/login" />
         </Router>

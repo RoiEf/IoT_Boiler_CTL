@@ -19,6 +19,7 @@ const Header = (/* props */) => {
         <Link href="/basic">Basic Settings</Link>
         <Link href="/wifi">WiFi Settings</Link>
         <Link href="/updates">Updates</Link>
+        <Link href="/admin">Admin</Link>
         {/* part of the program </Fragment>):( */}
         <Link href="/login">Login</Link>
         {/* part of the program )} */}

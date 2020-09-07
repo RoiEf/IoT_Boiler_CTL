@@ -1,13 +1,14 @@
 import { h, createContext } from "preact";
 import { useState } from "preact/hooks";
 
-const StateContext = createContext([{}, () => {}]);
+const StateContext = createContext([{}, () => { }]);
 
 const StateContextProvider = (props) => {
   const [state, setState] = useState({
     auth: { user: null, password: null, isAutenticated: false },
     basic: { wifiAP: true, lora: false, lan: false, bt: false, serial: false },
     wifi: { SSID: "base_iot", wifiPassword: "" },
+    admin: { updateSucsess: false },
   });
 
   return (
