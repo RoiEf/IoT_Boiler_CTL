@@ -26,26 +26,35 @@ const useAdmin = () => {
         if (res.message === "Password Update sucess") {
           setState((state) => ({
             ...state,
-            auth: { password: obj.password },
+            auth: { user: state.auth.user, password: obj.password1, isAutenticated: true },
+            admin: { updateSent: true, updateSucsess: true },
           }));
         } else if (res.message === "Auth Faild") {
           setState((state) => ({
             ...state,
             auth: { user: null, password: null, isAutenticated: false },
           }));
+        } else {
+          // update failed but not autentication
+          setState((state) => ({
+            ...state,
+            admin: { updateSent: true, updateSucsess: false },
+          }));
         }
       })
       .catch((error) => console.log("something failed", error));
   }
-  // function reset() {
-  //   setState((state) => ({
-  //     ...state,
-  //     admin: { password: null, password1: null, password2: null },
-  //   }));
-  // }
+  function reset() {
+    setState((state) => ({
+      ...state,
+      admin: { updateSent: false, updateSucsess: false },
+    }));
+  }
   return {
     saveData,
-    updateSucsess: state.updateSucsess,
+    reset,
+    updateSent: state.admin.updateSent,
+    updateSucsess: state.admin.updateSucsess,
   };
 };
 

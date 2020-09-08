@@ -8,7 +8,7 @@ const StateContextProvider = (props) => {
     auth: { user: null, password: null, isAutenticated: false },
     basic: { wifiAP: true, lora: false, lan: false, bt: false, serial: false },
     wifi: { SSID: "base_iot", wifiPassword: "" },
-    admin: { updateSucsess: false },
+    admin: { updateSent: false, updateSucsess: false },
   });
 
   return (

@@ -7,11 +7,12 @@ import useAdmin from "../../context/useAdmin";
 import Save from "../../components/save/save";
 
 const Admin = (/* props */) => {
-  const { saveData, updateSucsess } = useAdmin();
+  const { saveData, reset, updateSent, updateSucsess } = useAdmin();
   const [password, updatePassword] = useState("");
   const [password1, updatePassword1] = useState("");
   const [password2, updatePassword2] = useState("");
   const [showSaveBTN, setShowSaveBTN] = useState(false);
+  const [successMsg, setSuccsessMsg] = useState(false);
   // const [state, setState] = useContext(StateContext);
 
   const onSubmit = (e) => {
@@ -26,12 +27,12 @@ const Admin = (/* props */) => {
         setShowSaveBTN(true);
       } else {
         setShowSaveBTN(false);
-        console.log("onPasswordChange bad comp");
+        // console.log("onPasswordChange bad comp");
       }
     }
-    if (e.length > 4) {
-      console.log("onPasswordChange e: ", e);
-    }
+    // if (e.length > 4) {
+    //   console.log("onPasswordChange e: ", e);
+    // }
   };
   const onPassword1Change = (e) => {
     if (e.length > 4 && password.length > 4 && password2.length > 4) {
@@ -40,12 +41,12 @@ const Admin = (/* props */) => {
         setShowSaveBTN(true);
       } else {
         setShowSaveBTN(false);
-        console.log("onPassword1Change bad comp");
+        // console.log("onPassword1Change bad comp");
       }
     }
-    if (e.length > 4) {
-      console.log("onPassword1Change e: ", e);
-    }
+    // if (e.length > 4) {
+    //   console.log("onPassword1Change e: ", e);
+    // }
   };
   const onPassword2Change = (e) => {
     if (e.length > 4 && password.length > 4 && password1.length > 4) {
@@ -54,18 +55,29 @@ const Admin = (/* props */) => {
         setShowSaveBTN(true);
       } else {
         setShowSaveBTN(false);
-        console.log("onPassword2Change bad comp");
+        // console.log("onPassword2Change bad comp");
       }
     }
-    if (e.length > 4) {
-      console.log("onPassword2Change e: ", e);
-    }
+    // if (e.length > 4) {
+    //   console.log("onPassword2Change e: ", e);
+    // }
   };
 
-  // useEffect(() => {
-  //   console.log("Running useEffect");
-  //   reset();
-  // }, []);
+  useEffect(() => {
+    // console.log("Running useEffect");
+    reset();
+  }, []);
+  useEffect(() => {
+    console.log("Running useEffect updateSent, updateSucsess");
+    if (updateSent && updateSucsess) {
+      setSuccsessMsg(true);
+      updatePassword("");
+      updatePassword1("");
+      updatePassword2("");
+      setShowSaveBTN(false);
+      reset();
+    }
+  }, [updateSent, updateSucsess]);
 
   return (
     <div id="basePage">
@@ -74,6 +86,8 @@ const Admin = (/* props */) => {
       </div>
       <div id="contentBox">
         <h1>Update Admin Password</h1>
+        {(updateSent === true && updateSucsess === false) && <h2>Error Updating Password</h2>}
+        {successMsg && <h2>Updating Password Success</h2>}
         <form onSubmit={onSubmit}>
           <p>
             Current Password:
