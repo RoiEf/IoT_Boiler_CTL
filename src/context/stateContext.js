@@ -7,7 +7,7 @@ const StateContextProvider = (props) => {
   const [state, setState] = useState({
     auth: { user: null, password: null, isAutenticated: false },
     basic: { wifiAP: true, lora: false, lan: false, bt: false, serial: false },
-    wifi: { SSID: "base_iot", wifiPassword: "" },
+    wifi: { SSID: "base_iot", wifiPassword: "", DHCP: true },
     admin: { updateSent: false, updateSucsess: false },
   });
 
