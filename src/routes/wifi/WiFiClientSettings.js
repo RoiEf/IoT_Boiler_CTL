@@ -33,7 +33,7 @@ const WiFiClientSettings = (/* props */) => {
       <h1>Client Mode Settings</h1>
       {/* dhcp or static */}
       <UseDhcp />
-      <br />
+      <br /><hr />
       {/* static ip */}
       <StaticIP />
     </div>
