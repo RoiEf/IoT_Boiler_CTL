@@ -12,7 +12,7 @@ import { Router } from "preact-router";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Home from "./routes/home";
-import Basic from "./routes/basic";
+// import Basic from "./routes/basic";
 import WiFi from "./routes/wifi";
 import Updates from "./routes/updates";
 import Admin from "./routes/admin";
@@ -31,7 +31,7 @@ const App = () => {
         <Router>
           <Home path="/" />
           <Home path="/build" />
-          <Basic path="/basic" />
+          {/* <Basic path="/basic" /> */}
           <WiFi path="/wifi" />
           <Updates path="/updates" />
           <Admin path="/admin" />
