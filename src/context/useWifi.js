@@ -73,6 +73,26 @@ const useWifi = () => {
           dg1: obj.dg1, dg2: obj.dg2, dg3: obj.dg3, dg4: obj.dg4,
         },
       }));
+      fetch(address, {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: state.auth.user,
+          password: state.auth.password,
+          cmd: "updateStaticIP",
+          ip1: obj.ip1, ip2: obj.ip2, ip3: obj.ip3, ip4: obj.ip4,
+          sm1: obj.sm1, sm2: obj.sm2, sm3: obj.sm3, sm4: obj.sm4,
+          dg1: obj.dg1, dg2: obj.dg2, dg3: obj.dg3, dg4: obj.dg4,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("basic response: ", res);
+        })
+        .catch((error) => console.log("something failed", error));
+
     }
   }
 
