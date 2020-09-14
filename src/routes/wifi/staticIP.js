@@ -6,20 +6,53 @@ import useWifi from "../../context/useWifi";
 
 import Save from "../../components/save/save";
 
+const useNumber = () => {
+  const [number, setNum] = useState(0);
+
+  const setNumber = (val) => {
+    if (Number.isInteger(val)) {
+      setNum(val);
+    } else if (typeof (val) === "string") {
+      setNum(parseInt(val));
+    }
+  };
+
+  return { number, setNumber };
+};
+
+// const myFunc = () => {
+//   const [num1, setNum1] = useNumber(0);
+//   const [num2, setNum2] = useNumber(0);
+
+//   return (<Fragment>
+//     <input
+//       type="number"
+//       value={num1}
+//       onInput={(e) => setNum1(e.target.value)}
+//     />
+//     <input
+//       type="number"
+//       value={num2}
+//       onInput={(e) => setNum2(e.target.value)}
+//     />
+//   </Fragment>);
+// };
+
+
 const StaticIP = (/* props */) => {
   const { saveData, reset, updateSent, updateSucsess, staticIP } = useWifi();
-  const [ip1, updateIp1] = useState(0);
-  const [ip2, updateIp2] = useState(0);
-  const [ip3, updateIp3] = useState(0);
-  const [ip4, updateIp4] = useState(0);
-  const [subnetMask1, updateSubnetMask1] = useState(0);
-  const [subnetMask2, updateSubnetMask2] = useState(0);
-  const [subnetMask3, updateSubnetMask3] = useState(0);
-  const [subnetMask4, updateSubnetMask4] = useState(0);
-  const [defaultGateway1, updateDefaultGateway1] = useState(0);
-  const [defaultGateway2, updateDefaultGateway2] = useState(0);
-  const [defaultGateway3, updateDefaultGateway3] = useState(0);
-  const [defaultGateway4, updateDefaultGateway4] = useState(0);
+  const { number: ip1, setNumber: updateIp1 } = useNumber();
+  const { number: ip2, setNumber: updateIp2 } = useNumber();
+  const { number: ip3, setNumber: updateIp3 } = useNumber();
+  const { number: ip4, setNumber: updateIp4 } = useNumber();
+  const { number: subnetMask1, setNumber: updateSubnetMask1 } = useNumber();
+  const { number: subnetMask2, setNumber: updateSubnetMask2 } = useNumber();
+  const { number: subnetMask3, setNumber: updateSubnetMask3 } = useNumber();
+  const { number: subnetMask4, setNumber: updateSubnetMask4 } = useNumber();
+  const { number: defaultGateway1, setNumber: updateDefaultGateway1 } = useNumber();
+  const { number: defaultGateway2, setNumber: updateDefaultGateway2 } = useNumber();
+  const { number: defaultGateway3, setNumber: updateDefaultGateway3 } = useNumber();
+  const { number: defaultGateway4, setNumber: updateDefaultGateway4 } = useNumber();
   const [showError, setShowError] = useState(false);
   const [successMsg, setSuccsessMsg] = useState(false);
 
@@ -33,8 +66,8 @@ const StaticIP = (/* props */) => {
         saveData({
           caller: "staticIP",
           ip1, ip2, ip3, ip4,
-          subnetMask1, subnetMask2, subnetMask3, subnetMask4,
-          defaultGateway1, defaultGateway2, defaultGateway3, defaultGateway4
+          sm1: subnetMask1, sm2: subnetMask2, sm3: subnetMask3, sm4: subnetMask4,
+          dg1: defaultGateway1, dg2: defaultGateway2, dg3: defaultGateway3, dg4: defaultGateway4
         });
       } else {
         setShowError(true);
@@ -42,10 +75,10 @@ const StaticIP = (/* props */) => {
     }, 500);
   };
 
-  const onValChange = (e) => {
-    console.log("e: ", e);
-    // console.log("type of e:", typeof (e))
-  };
+  // const onValChange = (e) => {
+  // console.log("e: ", e);
+  // console.log("type of e:", typeof (e))
+  // };
 
   const validateData = () => {
     let flag = 0;
@@ -53,13 +86,6 @@ const StaticIP = (/* props */) => {
       flag--;
       console.log("ip1: ", flag);
     }
-    // if (!Number.isInteger(ip1)) {
-    //   flag--;
-    //   console.log("ip1: ", flag);
-    // }
-    // if (ip1 < 0 || ip1 > 255) {
-    //   flag -= 5;
-    // }
     if (!Number.isInteger(ip2) || ip2 < 0 || ip2 > 255) {
       flag--;
       console.log("ip2: ", flag);
@@ -115,22 +141,22 @@ const StaticIP = (/* props */) => {
     console.log("staticIP.js useEffect reset");
     reset();
   }, []);
-  // useEffect(() => {
-  //   console.log("staticIP.js useEffect set values");
-  //   updateIp1(staticIP.ip1);
-  //   updateIp2(staticIP.ip2);
-  //   updateIp3(staticIP.ip3);
-  //   updateIp4(staticIP.ip4);
-  //   updateSubnetMask1(staticIP.sm1);
-  //   updateSubnetMask2(staticIP.sm2);
-  //   updateSubnetMask3(staticIP.sm3);
-  //   updateSubnetMask4(staticIP.sm4);
-  //   updateDefaultGateway1(staticIP.dg1);
-  //   updateDefaultGateway2(staticIP.dg2);
-  //   updateDefaultGateway3(staticIP.dg3);
-  //   updateDefaultGateway4(staticIP.dg4);
-  //   // setTimeout(() => { validateData(); }, 500);
-  // }, [staticIP]);
+  useEffect(() => {
+    console.log("staticIP.js useEffect set values");
+    updateIp1(staticIP.ip1);
+    updateIp2(staticIP.ip2);
+    updateIp3(staticIP.ip3);
+    updateIp4(staticIP.ip4);
+    updateSubnetMask1(staticIP.sm1);
+    updateSubnetMask2(staticIP.sm2);
+    updateSubnetMask3(staticIP.sm3);
+    updateSubnetMask4(staticIP.sm4);
+    updateDefaultGateway1(staticIP.dg1);
+    updateDefaultGateway2(staticIP.dg2);
+    updateDefaultGateway3(staticIP.dg3);
+    updateDefaultGateway4(staticIP.dg4);
+    // setTimeout(() => { validateData(); }, 500);
+  }, [staticIP]);
 
   return (
     <Fragment>
@@ -147,28 +173,28 @@ const StaticIP = (/* props */) => {
             min="0"
             max="255"
             value={ip1}
-            onInput={(e) => { updateIp1(e.target.value); onValChange(e) }}
+            onInput={(e) => { updateIp1(e.target.value); /* onValChange(e)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={ip2}
-            onInput={(e) => { updateIp2(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateIp2(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={ip3}
-            onInput={(e) => { updateIp3(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateIp3(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={ip4}
-            onInput={(e) => { updateIp4(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateIp4(e.target.value); /*onValChange(e.target.value)*/ }}
           />
         </p>
         <p>
@@ -178,28 +204,28 @@ const StaticIP = (/* props */) => {
             min="0"
             max="255"
             value={subnetMask1}
-            onInput={(e) => { updateSubnetMask1(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateSubnetMask1(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={subnetMask2}
-            onInput={(e) => { updateSubnetMask2(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateSubnetMask2(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={subnetMask3}
-            onInput={(e) => { updateSubnetMask3(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateSubnetMask3(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={subnetMask4}
-            onInput={(e) => { updateSubnetMask4(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateSubnetMask4(e.target.value); /*onValChange(e.target.value)*/ }}
           />
         </p>
         <p>
@@ -209,28 +235,28 @@ const StaticIP = (/* props */) => {
             min="0"
             max="255"
             value={defaultGateway1}
-            onInput={(e) => { updateDefaultGateway1(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateDefaultGateway1(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={defaultGateway2}
-            onInput={(e) => { updateDefaultGateway2(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateDefaultGateway2(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={defaultGateway3}
-            onInput={(e) => { updateDefaultGateway3(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateDefaultGateway3(e.target.value); /*onValChange(e.target.value)*/ }}
           />
           <input
             type="number"
             min="0"
             max="255"
             value={defaultGateway4}
-            onInput={(e) => { updateDefaultGateway4(e.target.value); onValChange(e.target.value) }}
+            onInput={(e) => { updateDefaultGateway4(e.target.value); /*onValChange(e.target.value)*/ }}
           />
         </p>
         <Save />
