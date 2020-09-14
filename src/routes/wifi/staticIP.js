@@ -20,25 +20,6 @@ const useNumber = () => {
   return { number, setNumber };
 };
 
-// const myFunc = () => {
-//   const [num1, setNum1] = useNumber(0);
-//   const [num2, setNum2] = useNumber(0);
-
-//   return (<Fragment>
-//     <input
-//       type="number"
-//       value={num1}
-//       onInput={(e) => setNum1(e.target.value)}
-//     />
-//     <input
-//       type="number"
-//       value={num2}
-//       onInput={(e) => setNum2(e.target.value)}
-//     />
-//   </Fragment>);
-// };
-
-
 const StaticIP = (/* props */) => {
   const { saveData, reset, updateSent, updateSucsess, staticIP } = useWifi();
   const { number: ip1, setNumber: updateIp1 } = useNumber();
