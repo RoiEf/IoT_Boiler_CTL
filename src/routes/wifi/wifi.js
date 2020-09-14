@@ -4,6 +4,7 @@ import { useState, useEffect } from "preact/hooks"; // , useContext
 // import { StateContext } from "../../context/stateContext";
 import useWifi from "../../context/useWifi";
 
+import WiFiBasicSettings from "./WiFiBasicSettings";
 import WiFiClientSettings from "./WiFiClientSettings";
 import Save from "../../components/save/save";
 const address = `http://${window.location.hostname}:${80}/network`;
@@ -31,6 +32,8 @@ const WiFi = (/* props */) => {
       <div id="topHeader">
         <h1>WiFi Settings</h1>
       </div>
+      <WiFiBasicSettings />
+      {/*
       <div id="contentBox">
         <h1>Basic WiFi Settings</h1>
         <form onSubmit={onSubmit}>
@@ -54,6 +57,7 @@ const WiFi = (/* props */) => {
           <Save />
         </form>
       </div>
+      */}
       <WiFiClientSettings />
     </div>
   );

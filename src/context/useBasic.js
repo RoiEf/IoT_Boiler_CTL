@@ -67,7 +67,7 @@ const useBasic = () => {
       })
       .catch((error) => console.log("something failed", error));
   }
-  return { getBasic, saveBasic, wifiAP: state.basic.wifiAP };
+  return { getBasic, saveBasic, wifiAP: state.basic.WiFi };
 };
 
 export default useBasic;
