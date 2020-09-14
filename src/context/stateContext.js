@@ -6,8 +6,9 @@ const StateContext = createContext([{}, () => { }]);
 const StateContextProvider = (props) => {
   const [state, setState] = useState({
     auth: { user: null, password: null, isAutenticated: false },
-    basic: { wifiAP: true, lora: false, lan: false, bt: false, serial: false },
+    basic: { WiFi: true, lora: false, lan: false, bt: false, serial: false },
     wifi: {
+      wifiAP: true,
       SSID: "base_iot",
       wifiPassword: "",
       DHCP: true,
