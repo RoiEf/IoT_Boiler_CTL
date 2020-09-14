@@ -49,11 +49,7 @@ const useWifi = () => {
       .catch((error) => console.log("something failed", error));
   }
   function saveData(obj) {
-    if (typeof obj.caller === "undefined") {
-      setState((state) => ({
-        ...state,
-        wifi: { wifiAP: state.wifi.wifiAP, SSID: obj.SSID, wifiPassword: obj.wifiPassword, DHCP: state.wifi.DHCP, },
-      }));
+    if (obj.caller === "SSIDinAP") { /* typeof obj.caller === "undefined" */
       fetch(address, {
         method: "post",
         headers: {
@@ -70,6 +66,17 @@ const useWifi = () => {
         .then((res) => res.json())
         .then((res) => {
           console.log("basic response: ", res);
+          setState((state) => ({
+            ...state,
+            wifi: {
+              wifiAP: state.wifi.wifiAP,
+              SSID: obj.SSID,
+              wifiPassword: obj.wifiPassword,
+              DHCP: state.wifi.DHCP,
+              // updateSent: true,
+              // updateSucsess: true,
+            },
+          }));
         })
         .catch((error) => console.log("something failed", error));
     } else if (obj.caller === "staticIP") {
