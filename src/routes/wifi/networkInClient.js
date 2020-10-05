@@ -11,7 +11,7 @@ const SSIDinSTA = () => {
       <p>
         Network SSID: {ssid ? ssid : <b>No Network selected</b>}
         {ssid && " | Autentication: "}
-        {ssid && authType ? authType : <b>Open Network</b>}
+        {ssid && (authType ? authType : <b>Open Network</b>)}
       </p>
     </Fragment>
   );
