@@ -14,7 +14,7 @@ function ScanWiFiLines(props) {
   ));
   // const [found, updateFound] = useState(false);
   // const [authType, updateAuthType] = useState("");
-  console.log(list);
+  // console.log(list);
   return <Fragment>{list}</Fragment>;
 }
 

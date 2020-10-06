@@ -12,7 +12,7 @@ function ScanWiFi() {
   ]);
 
   useEffect(() => {
-    console.log("scanWiFi.js useEffect");
+    // console.log("scanWiFi.js useEffect");
     fetch(address, {
       method: "post",
       headers: {
@@ -25,7 +25,7 @@ function ScanWiFi() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res: ", res);
+        // console.log("res: ", res);
         if (res.message === "No Networks found") {
           updateFound(false);
         } else {
@@ -38,7 +38,7 @@ function ScanWiFi() {
 
   return (
     <Fragment>
-      <p>WiFi networks in range</p>
+      <p>WiFi networks in range:</p>
       {found ? (
         <table border="1">
           <tr>
