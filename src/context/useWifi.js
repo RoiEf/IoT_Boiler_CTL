@@ -38,18 +38,30 @@ const useWifi = () => {
             DHCP: bDHCP,
             updateSent: false,
             updateSucsess: false,
+            SSID_IN_Client: state.wifi.SSID_IN_Client,
+            Auth_IN_Client: state.wifi.Auth_IN_Client,
           },
           staticIP: {
-            ip1: res.ip1, ip2: res.ip2, ip3: res.ip3, ip4: res.ip4,
-            sm1: res.sm1, sm2: res.sm2, sm3: res.sm3, sm4: res.sm4,
-            dg1: res.dg1, dg2: res.dg2, dg3: res.dg3, dg4: res.dg4,
+            ip1: res.ip1,
+            ip2: res.ip2,
+            ip3: res.ip3,
+            ip4: res.ip4,
+            sm1: res.sm1,
+            sm2: res.sm2,
+            sm3: res.sm3,
+            sm4: res.sm4,
+            dg1: res.dg1,
+            dg2: res.dg2,
+            dg3: res.dg3,
+            dg4: res.dg4,
           },
         }));
       })
       .catch((error) => console.log("something failed", error));
   }
   function saveData(obj) {
-    if (obj.caller === "SSIDinAP") { /* typeof obj.caller === "undefined" */
+    if (obj.caller === "SSIDinAP") {
+      /* typeof obj.caller === "undefined" */
       fetch(address, {
         method: "post",
         headers: {
@@ -83,9 +95,18 @@ const useWifi = () => {
       setState((state) => ({
         ...state,
         staticIP: {
-          ip1: obj.ip1, ip2: obj.ip2, ip3: obj.ip3, ip4: obj.ip4,
-          sm1: obj.sm1, sm2: obj.sm2, sm3: obj.sm3, sm4: obj.sm4,
-          dg1: obj.dg1, dg2: obj.dg2, dg3: obj.dg3, dg4: obj.dg4,
+          ip1: obj.ip1,
+          ip2: obj.ip2,
+          ip3: obj.ip3,
+          ip4: obj.ip4,
+          sm1: obj.sm1,
+          sm2: obj.sm2,
+          sm3: obj.sm3,
+          sm4: obj.sm4,
+          dg1: obj.dg1,
+          dg2: obj.dg2,
+          dg3: obj.dg3,
+          dg4: obj.dg4,
         },
       }));
       fetch(address, {
@@ -97,9 +118,18 @@ const useWifi = () => {
           userName: state.auth.user,
           password: state.auth.password,
           cmd: "updateStaticIP",
-          ip1: obj.ip1, ip2: obj.ip2, ip3: obj.ip3, ip4: obj.ip4,
-          sm1: obj.sm1, sm2: obj.sm2, sm3: obj.sm3, sm4: obj.sm4,
-          dg1: obj.dg1, dg2: obj.dg2, dg3: obj.dg3, dg4: obj.dg4,
+          ip1: obj.ip1,
+          ip2: obj.ip2,
+          ip3: obj.ip3,
+          ip4: obj.ip4,
+          sm1: obj.sm1,
+          sm2: obj.sm2,
+          sm3: obj.sm3,
+          sm4: obj.sm4,
+          dg1: obj.dg1,
+          dg2: obj.dg2,
+          dg3: obj.dg3,
+          dg4: obj.dg4,
         }),
       })
         .then((res) => res.json())
@@ -107,8 +137,8 @@ const useWifi = () => {
           console.log("basic response: ", res);
         })
         .catch((error) => console.log("something failed", error));
-
-    } if (obj.caller === "deviceMode") {
+    }
+    if (obj.caller === "deviceMode") {
       fetch(address, {
         method: "post",
         headers: {
@@ -133,7 +163,7 @@ const useWifi = () => {
                 wifiPassword: state.wifi.wifiPassword,
                 DHCP: state.wifi.DHCP,
                 updateSent: true,
-                updateSucsess: true
+                updateSucsess: true,
               },
             }));
           } else if (res.message === "Auth Faild") {
@@ -163,7 +193,11 @@ const useWifi = () => {
   function saveDHCP(obj) {
     setState((state) => ({
       ...state,
-      wifi: { SSID: state.wifi.SSID, wifiPassword: state.wifi.wifiPassword, DHCP: obj.DHCP, },
+      wifi: {
+        SSID: state.wifi.SSID,
+        wifiPassword: state.wifi.wifiPassword,
+        DHCP: obj.DHCP,
+      },
     }));
     fetch(address, {
       method: "post",
@@ -191,7 +225,7 @@ const useWifi = () => {
         wifiPassword: state.wifi.wifiPassword,
         DHCP: state.wifi.DHCP,
         updateSent: false,
-        updateSucsess: false
+        updateSucsess: false,
       },
     }));
   }
@@ -208,6 +242,8 @@ const useWifi = () => {
     updateSucsess: state.wifi.updateSucsess,
     staticIP: state.staticIP,
     wifiAP: state.wifi.wifiAP,
+    SSID_IN_Client: state.wifi.SSID_IN_Client,
+    Auth_IN_Client: state.wifi.Auth_IN_Client,
   };
 };
 

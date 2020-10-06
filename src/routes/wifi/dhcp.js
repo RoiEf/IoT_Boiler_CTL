@@ -8,7 +8,7 @@ import Save from "../../components/save/save";
 // const address = `http://${window.location.hostname}:${80}/network`;
 
 const UseDhcp = (/* props */) => {
-  const { saveDHCP, DHCP } = useWifi(); // getDHCP, 
+  const { saveDHCP, DHCP } = useWifi(); // getDHCP,
   const [dhcp, dhcpToggle] = useState(true);
   const [dhcpChanged, setDhcpChanged] = useState(false);
   const [dhcpOrig, setDhcpOrig] = useState(true);
@@ -28,7 +28,7 @@ const UseDhcp = (/* props */) => {
   };
 
   useEffect(() => {
-    console.log("wifi.js get DHCP");
+    // console.log("wifi.js get DHCP");
     // getDHCP();
     dhcpToggle(DHCP);
     setDhcpOrig(DHCP);
