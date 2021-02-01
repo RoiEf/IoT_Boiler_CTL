@@ -11,6 +11,7 @@ const SSIDinSTA = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log("networkInClient.js onSubmit");
     saveData({
       caller: "SSIDinSTA",
       SSID: ssid,
@@ -22,6 +23,10 @@ const SSIDinSTA = () => {
     // console.log("SSIDinAP.js useEffect");
     updateSSID(SSID_IN_Client);
   }, [SSID_IN_Client]);
+  useEffect(() => {
+    // console.log("SSIDinAP.js useEffect");
+    updatePassword(Auth_IN_Client);
+  }, [Auth_IN_Client]);
 
   return (
     <Fragment>

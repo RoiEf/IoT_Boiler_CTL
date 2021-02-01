@@ -7,6 +7,7 @@ const useWifi = () => {
   const [state, setState] = useContext(StateContext);
 
   function getData() {
+    console.log("useWifi.getData");
     let bDHCP = true;
     let bWiFiAP = true;
 
@@ -38,8 +39,8 @@ const useWifi = () => {
             DHCP: bDHCP,
             updateSent: false,
             updateSucsess: false,
-            SSID_IN_Client: state.wifi.SSID_IN_Client,
-            Auth_IN_Client: state.wifi.Auth_IN_Client,
+            SSID_IN_Client: res.SSID_IN_Client,
+            Auth_IN_Client: res.Auth_IN_Client,
           },
           staticIP: {
             ip1: res.ip1,
@@ -59,8 +60,43 @@ const useWifi = () => {
       })
       .catch((error) => console.log("something failed", error));
   }
+
   function saveData(obj) {
-    if (obj.caller === "SSIDinAP") {
+    if (obj.caller === "SSIDinSTA") {
+      /* typeof obj.caller === "undefined" */
+      console.log("saveData obj.caller === SSIDinSTA");
+      fetch(address, {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: state.auth.user,
+          password: state.auth.password,
+          SSID_IN_Client: obj.SSID,
+          Auth_IN_Client: obj.wifiPassword,
+          cmd: "updateSSIDinSTA",
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log("basic response: ", res);
+          setState((state) => ({
+            ...state,
+            wifi: {
+              wifiAP: state.wifi.wifiAP,
+              SSID: state.wifi.SSID,
+              wifiPassword: state.wifi.wifiPassword,
+              DHCP: state.wifi.DHCP,
+              // updateSent: true,
+              // updateSucsess: true,
+              SSID_IN_Client: obj.SSID,
+              Auth_IN_Client: obj.wifiPassword,
+            },
+          }));
+        })
+        .catch((error) => console.log("something failed", error));
+    } else if (obj.caller === "SSIDinAP") {
       /* typeof obj.caller === "undefined" */
       fetch(address, {
         method: "post",
@@ -87,6 +123,8 @@ const useWifi = () => {
               DHCP: state.wifi.DHCP,
               // updateSent: true,
               // updateSucsess: true,
+              SSID_IN_Client: state.wifi.SSID_IN_Client,
+              Auth_IN_Client: state.wifi.Auth_IN_Client,
             },
           }));
         })
@@ -137,8 +175,7 @@ const useWifi = () => {
           console.log("basic response: ", res);
         })
         .catch((error) => console.log("something failed", error));
-    }
-    if (obj.caller === "deviceMode") {
+    } else if (obj.caller === "deviceMode") {
       fetch(address, {
         method: "post",
         headers: {
@@ -164,6 +201,8 @@ const useWifi = () => {
                 DHCP: state.wifi.DHCP,
                 updateSent: true,
                 updateSucsess: true,
+                SSID_IN_Client: state.wifi.SSID_IN_Client,
+                Auth_IN_Client: state.wifi.Auth_IN_Client,
               },
             }));
           } else if (res.message === "Auth Faild") {
@@ -182,6 +221,8 @@ const useWifi = () => {
                 DHCP: state.wifi.DHCP,
                 updateSent: true,
                 updateSucsess: false,
+                SSID_IN_Client: state.wifi.SSID_IN_Client,
+                Auth_IN_Client: state.wifi.Auth_IN_Client,
               },
             }));
           }
