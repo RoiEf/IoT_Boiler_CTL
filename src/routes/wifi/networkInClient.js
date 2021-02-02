@@ -24,8 +24,10 @@ const SSIDinSTA = () => {
     updateSSID(SSID_IN_Client);
   }, [SSID_IN_Client]);
   useEffect(() => {
-    // console.log("SSIDinAP.js useEffect");
-    updatePassword(Auth_IN_Client);
+    // console.log("SSIDinAP.js useEffect Auth_IN_Client:", Auth_IN_Client);
+    if (Auth_IN_Client === "true" || Auth_IN_Client === false) {
+      updatePassword("");
+    } else updatePassword(Auth_IN_Client);
   }, [Auth_IN_Client]);
 
   return (

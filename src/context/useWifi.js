@@ -7,7 +7,7 @@ const useWifi = () => {
   const [state, setState] = useContext(StateContext);
 
   function getData() {
-    console.log("useWifi.getData");
+    // console.log("useWifi.getData");
     let bDHCP = true;
     let bWiFiAP = true;
 
@@ -23,7 +23,7 @@ const useWifi = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res: ", res);
+        // console.log("res: ", res);
         if (res.dhcp === "STATIC") {
           bDHCP = false;
         }
@@ -271,11 +271,27 @@ const useWifi = () => {
     }));
   }
 
+  function selectNetworkLine(obj) {
+    setState((state) => ({
+      ...state,
+      wifi: {
+        SSID: state.wifi.SSID,
+        wifiPassword: state.wifi.wifiPassword,
+        DHCP: state.wifi.DHCP,
+        updateSent: false,
+        updateSucsess: false,
+        SSID_IN_Client: obj.ssid,
+        Auth_IN_Client: obj.auth,
+      },
+    }));
+  }
+
   return {
     getData,
     saveData,
     reset,
     saveDHCP,
+    selectNetworkLine,
     SSID: state.wifi.SSID,
     wifiPassword: state.wifi.wifiPassword,
     DHCP: state.wifi.DHCP,
