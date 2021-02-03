@@ -16,6 +16,8 @@ const StateContextProvider = (props) => {
       updateSucsess: false,
       SSID_IN_Client: "No Network currently selected",
       Auth_IN_Client: false,
+      SSID_From_Scan: false,
+      Auth_From_Scan: false,
     },
     staticIP: {
       ip1: 0,

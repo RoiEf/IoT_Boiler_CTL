@@ -41,6 +41,8 @@ const useWifi = () => {
             updateSucsess: false,
             SSID_IN_Client: res.SSID_IN_Client,
             Auth_IN_Client: res.Auth_IN_Client,
+            SSID_From_Scan: false,
+            Auth_From_Scan: false,
           },
           staticIP: {
             ip1: res.ip1,
@@ -281,7 +283,9 @@ const useWifi = () => {
         updateSent: false,
         updateSucsess: false,
         SSID_IN_Client: obj.ssid,
-        Auth_IN_Client: obj.auth,
+        Auth_IN_Client: "",
+        SSID_From_Scan: true,
+        Auth_From_Scan: obj.auth,
       },
     }));
   }
@@ -301,6 +305,8 @@ const useWifi = () => {
     wifiAP: state.wifi.wifiAP,
     SSID_IN_Client: state.wifi.SSID_IN_Client,
     Auth_IN_Client: state.wifi.Auth_IN_Client,
+    SSID_From_Scan: state.wifi.SSID_From_Scan,
+    Auth_From_Scan: state.wifi.Auth_From_Scan,
   };
 };
 

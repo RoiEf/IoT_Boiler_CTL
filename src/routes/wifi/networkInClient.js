@@ -5,7 +5,13 @@ import useWifi from "../../context/useWifi";
 import Save from "../../components/save/save";
 
 const SSIDinSTA = () => {
-  const { saveData, SSID_IN_Client, Auth_IN_Client } = useWifi();
+  const {
+    saveData,
+    SSID_IN_Client,
+    Auth_IN_Client,
+    SSID_From_Scan,
+    Auth_From_Scan,
+  } = useWifi();
   const [ssid, updateSSID] = useState("No Network currently selected");
   const [password, updatePassword] = useState("");
 
@@ -25,9 +31,10 @@ const SSIDinSTA = () => {
   }, [SSID_IN_Client]);
   useEffect(() => {
     // console.log("SSIDinAP.js useEffect Auth_IN_Client:", Auth_IN_Client);
-    if (Auth_IN_Client === "true" || Auth_IN_Client === false) {
-      updatePassword("");
-    } else updatePassword(Auth_IN_Client);
+    // if (Auth_IN_Client === "true" || Auth_IN_Client === "false") {
+    //   updatePassword("");
+    // } else
+    updatePassword(Auth_IN_Client);
   }, [Auth_IN_Client]);
 
   return (
@@ -41,9 +48,16 @@ const SSIDinSTA = () => {
             value={ssid}
             onInput={(e) => updateSSID(e.target.value)}
           />
-          {SSID_IN_Client && " | Autentication: "}
-          {SSID_IN_Client &&
+          {ssid !== "" &&
+            (SSID_From_Scan === false || SSID_From_Scan === "false") &&
+            " | Autentication: "}
+          {ssid !== "" &&
+            (SSID_From_Scan === false || SSID_From_Scan === "false") &&
             (Auth_IN_Client ? <b>"V"</b> : <b>Open Network</b>)}
+          {ssid !== "" &&
+            (SSID_From_Scan === true || SSID_From_Scan === "true") &&
+            (Auth_From_Scan === false || Auth_From_Scan === "false") &&
+            " | Autentication: " + <b>Open Network</b>}
         </p>
         <p>
           <input
@@ -52,7 +66,13 @@ const SSIDinSTA = () => {
             onInput={(e) => updatePassword(e.target.value)}
           />
           {password === "" &&
-            " If Password is left blank, No security will be used for WiFi"}
+          (SSID_From_Scan === true || SSID_From_Scan === "true") &&
+          (Auth_From_Scan === true || Auth_From_Scan === "true")
+            ? "This Network requires Password"
+            : ssid !== "" &&
+              password === "" &&
+              SSID_From_Scan === false &&
+              " If Password is left blank, No security will be used for WiFi"}
         </p>
         <Save />
       </form>
