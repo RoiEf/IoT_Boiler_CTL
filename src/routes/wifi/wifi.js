@@ -21,7 +21,7 @@ const WiFi = (/* props */) => {
   // };
 
   useEffect(() => {
-    console.log("wifi.js get data");
+    // console.log("wifi.js get data");
     getData();
     // updateSSID(SSID);
     // updatePassword(wifiPassword);

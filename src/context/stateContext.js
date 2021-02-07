@@ -1,7 +1,7 @@
 import { h, createContext } from "preact";
 import { useState } from "preact/hooks";
 
-const StateContext = createContext([{}, () => { }]);
+const StateContext = createContext([{}, () => {}]);
 
 const StateContextProvider = (props) => {
   const [state, setState] = useState({
@@ -13,12 +13,32 @@ const StateContextProvider = (props) => {
       wifiPassword: "",
       DHCP: true,
       updateSent: false,
-      updateSucsess: false
+      updateSucsess: false,
+      SSID_IN_Client: "No Network currently selected",
+      Auth_IN_Client: false,
+      SSID_From_Scan: false,
+      Auth_From_Scan: false,
     },
     staticIP: {
-      ip1: 0, ip2: 0, ip3: 0, ip4: 0,
-      sm1: 0, sm2: 0, sm3: 0, sm4: 0,
-      dg1: 0, dg2: 0, dg3: 0, dg4: 0,
+      ip1: 0,
+      ip2: 0,
+      ip3: 0,
+      ip4: 0,
+      sm1: 0,
+      sm2: 0,
+      sm3: 0,
+      sm4: 0,
+      dg1: 0,
+      dg2: 0,
+      dg3: 0,
+      dg4: 0,
+    },
+    wifiLines: {
+      arr: [
+        { SSID: "one", auth: true, signal: 5 },
+        { SSID: "two", auth: true, signal: 5 },
+      ],
+      update: false,
     },
     admin: { updateSent: false, updateSucsess: false },
   });

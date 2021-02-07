@@ -3,13 +3,13 @@ import UseDhcp from "./dhcp";
 import StaticIP from "./staticIP";
 
 const WiFiClientSettings = (/* props */) => {
-
   return (
     <div id="contentBox">
-      <h1>Client Mode Settings</h1>
+      <h1>Advance Client Mode Settings</h1>
       {/* dhcp or static */}
       <UseDhcp />
-      <br /><hr />
+      <br />
+      <hr />
       {/* static ip */}
       <StaticIP />
     </div>

@@ -23,11 +23,13 @@
     "serve": "sirv build_dev -Dc"
   },
   "dependencies": {
-    "preact": "^10.4.4",
+    "preact": "^10.5.12",
     "preact-router": "^3.2.1"
   },
   "devDependencies": {
-    "microbundle": "^0.12.3",
-    "sirv-cli": "^0.4.6"
+    "@types/babel__core": "^7.1.12",
+    "microbundle": "^0.13.0",
+    "rollup": "^2.38.4",
+    "sirv-cli": "^1.0.11"
   }
 }
