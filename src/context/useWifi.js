@@ -274,6 +274,7 @@ const useWifi = () => {
   }
 
   function selectNetworkLine(obj) {
+    console.log("selectNetworkLine obj:", obj);
     setState((state) => ({
       ...state,
       wifi: {
@@ -291,7 +292,7 @@ const useWifi = () => {
   }
 
   function scanWiFi() {
-    console.log("scanWiFi.js updateData");
+    // console.log("scanWiFi.js updateData");
     fetch(address + "/scan", {
       method: "post",
       headers: {
@@ -306,10 +307,17 @@ const useWifi = () => {
       .then((res) => {
         // console.log("res: ", res);
         if (res.message === "No Networks found") {
-          updateFound(false);
+          // updateFound(false);
+          setState((state) => ({
+            ...state,
+            wifiLines: { arr: state.wifiLines.arr, update: false },
+          }));
         } else {
-          updateLinesArr(res.networks);
-          updateFound(true);
+          setState((state) => ({
+            ...state,
+            wifiLines: { arr: res.networks, update: true },
+          }));
+          // updateFound(true);
         }
       })
       .catch((error) => console.log("something failed", error));
@@ -333,6 +341,8 @@ const useWifi = () => {
     Auth_IN_Client: state.wifi.Auth_IN_Client,
     SSID_From_Scan: state.wifi.SSID_From_Scan,
     Auth_From_Scan: state.wifi.Auth_From_Scan,
+    wifiLinesArr: state.wifiLines.arr,
+    wifiLinesUpdate: state.wifiLines.update,
   };
 };
 

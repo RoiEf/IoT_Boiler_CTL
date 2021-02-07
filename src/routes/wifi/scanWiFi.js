@@ -1,53 +1,91 @@
 import { h, Fragment } from "preact";
 import { useState, useEffect } from "preact/hooks";
-import ScanWiFiLines from "./scanWiFiLines";
+// import ScanWiFiLines from "./scanWiFiLines";
 import useWifi from "../../context/useWifi";
 
 const address = `http://${window.location.hostname}:${80}/wifi/scan`;
 
 function ScanWiFi() {
-  const { scanWiFi } = useWifi();
+  const {
+    scanWiFi,
+    selectNetworkLine,
+    wifiLinesArr,
+    wifiLinesUpdate,
+  } = useWifi();
   const [found, updateFound] = useState(false);
   const [LinesArr, updateLinesArr] = useState([
-    { SSID: "one", auth: true, signal: 5 },
-    { SSID: "two", auth: true, signal: 5 },
+    // { SSID: "one", auth: true, signal: 5 },
+    // { SSID: "two", auth: true, signal: 5 },
   ]);
 
   useEffect(() => {
     // console.log("scanWiFi.js useEffect");
-    updateData();
+    scanWiFi();
+    // updateData();
   }, []);
 
-  const updateData = () => {
-    console.log("scanWiFi.js updateData");
-    fetch(address, {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: "admin",
-        password: "12345",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log("res: ", res);
-        if (res.message === "No Networks found") {
-          updateFound(false);
-        } else {
-          updateLinesArr(res.networks);
-          updateFound(true);
-        }
-      })
-      .catch((error) => console.log("something failed", error));
-  };
+  useEffect(() => {
+    updateLinesArr(wifiLinesArr);
+    updateFound(wifiLinesUpdate);
+  }, [wifiLinesArr, wifiLinesUpdate]);
 
-  const onSubmit = (e) => {
+  // const updateData = () => {
+  //   console.log("scanWiFi.js updateData");
+  //   fetch(address, {
+  //     method: "post",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       userName: "admin",
+  //       password: "12345",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       // console.log("res: ", res);
+  //       if (res.message === "No Networks found") {
+  //         updateFound(false);
+  //       } else {
+  //         updateLinesArr(res.networks);
+  //         updateFound(true);
+  //       }
+  //     })
+  //     .catch((error) => console.log("something failed", error));
+  // };
+
+  const onSubmitScanAgain = (e) => {
     e.preventDefault();
     // console.log("scanWiFi.js onSubmit");
-    updateData();
+    scanWiFi();
+    // updateData();
   };
+
+  const onSubmitSelectLine = (e) => {
+    e.preventDefault();
+    // console.log(e.target.ssid.value);
+    selectNetworkLine({ ssid: e.target.ssid.value, auth: e.target.auth.value });
+  };
+
+  function tableLines() {
+    return LinesArr.map((line, index) => {
+      const { SSID, auth, signal } = line;
+      return (
+        <tr>
+          <td>
+            <form onSubmit={onSubmitSelectLine}>
+              <input type="hidden" name="ssid" value={SSID} />
+              <input type="hidden" name="auth" value={auth} />
+              <input type="submit" name="select" value="Select" />
+            </form>
+          </td>
+          <td>{SSID}</td>
+          <td>{auth ? "V" : "Open"}</td>
+          <td>{signal}</td>
+        </tr>
+      );
+    });
+  }
 
   return (
     <Fragment>
@@ -60,12 +98,13 @@ function ScanWiFi() {
             <td>Autrentication</td>
             <td>Signal strength</td>
           </tr>
-          <ScanWiFiLines data={LinesArr} />
+          {tableLines()}
+          {/*<ScanWiFiLines data={LinesArr} />*/}
         </table>
       ) : (
         <p>NO WiFi networks Found</p>
       )}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitScanAgain}>
         <p class="submit">
           <input type="submit" name="rescan" value="Scan Again" />
         </p>

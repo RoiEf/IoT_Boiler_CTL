@@ -15,6 +15,7 @@ const SSIDinSTA = () => {
   const [ssid, updateSSID] = useState("No Network currently selected");
   const [password, updatePassword] = useState("");
   const [ssidFromScan, updateSSIDFromScan] = useState(false);
+  const [authFromScan, updateAuthFromScan] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +41,8 @@ const SSIDinSTA = () => {
   useEffect(() => {
     // console.log("SSIDinAP.js useEffect");
     updateSSIDFromScan(SSID_From_Scan);
-  }, [SSID_From_Scan]);
+    updateAuthFromScan(Auth_From_Scan);
+  }, [SSID_From_Scan, Auth_From_Scan]);
 
   return (
     <Fragment>
@@ -64,8 +66,8 @@ const SSIDinSTA = () => {
             (Auth_IN_Client ? <b>"V"</b> : <b>Open Network</b>)}
           {ssid !== "" &&
             (ssidFromScan === true || ssidFromScan === "true") &&
-            (Auth_From_Scan === false || Auth_From_Scan === "false") &&
-            " | Autentication: " + <b>Open Network</b>}
+            (authFromScan === false || authFromScan === "false") &&
+            " | Autentication: Open Network"}
         </p>
         <p>
           <input

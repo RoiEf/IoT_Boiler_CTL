@@ -33,6 +33,13 @@ const StateContextProvider = (props) => {
       dg3: 0,
       dg4: 0,
     },
+    wifiLines: {
+      arr: [
+        { SSID: "one", auth: true, signal: 5 },
+        { SSID: "two", auth: true, signal: 5 },
+      ],
+      update: false,
+    },
     admin: { updateSent: false, updateSucsess: false },
   });
 
