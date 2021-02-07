@@ -14,6 +14,7 @@ const SSIDinSTA = () => {
   } = useWifi();
   const [ssid, updateSSID] = useState("No Network currently selected");
   const [password, updatePassword] = useState("");
+  const [ssidFromScan, updateSSIDFromScan] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -36,6 +37,10 @@ const SSIDinSTA = () => {
     // } else
     updatePassword(Auth_IN_Client);
   }, [Auth_IN_Client]);
+  useEffect(() => {
+    // console.log("SSIDinAP.js useEffect");
+    updateSSIDFromScan(SSID_From_Scan);
+  }, [SSID_From_Scan]);
 
   return (
     <Fragment>
@@ -46,16 +51,19 @@ const SSIDinSTA = () => {
           <input
             type="text"
             value={ssid}
-            onInput={(e) => updateSSID(e.target.value)}
+            onInput={(e) => {
+              updateSSID(e.target.value);
+              updateSSIDFromScan(false);
+            }}
           />
           {ssid !== "" &&
-            (SSID_From_Scan === false || SSID_From_Scan === "false") &&
+            (ssidFromScan === false || ssidFromScan === "false") &&
             " | Autentication: "}
           {ssid !== "" &&
-            (SSID_From_Scan === false || SSID_From_Scan === "false") &&
+            (ssidFromScan === false || ssidFromScan === "false") &&
             (Auth_IN_Client ? <b>"V"</b> : <b>Open Network</b>)}
           {ssid !== "" &&
-            (SSID_From_Scan === true || SSID_From_Scan === "true") &&
+            (ssidFromScan === true || ssidFromScan === "true") &&
             (Auth_From_Scan === false || Auth_From_Scan === "false") &&
             " | Autentication: " + <b>Open Network</b>}
         </p>
@@ -66,12 +74,12 @@ const SSIDinSTA = () => {
             onInput={(e) => updatePassword(e.target.value)}
           />
           {password === "" &&
-          (SSID_From_Scan === true || SSID_From_Scan === "true") &&
+          (ssidFromScan === true || ssidFromScan === "true") &&
           (Auth_From_Scan === true || Auth_From_Scan === "true")
             ? "This Network requires Password"
             : ssid !== "" &&
               password === "" &&
-              SSID_From_Scan === false &&
+              ssidFromScan === false &&
               " If Password is left blank, No security will be used for WiFi"}
         </p>
         <Save />

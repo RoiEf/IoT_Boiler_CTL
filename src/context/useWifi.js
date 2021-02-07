@@ -290,12 +290,38 @@ const useWifi = () => {
     }));
   }
 
+  function scanWiFi() {
+    console.log("scanWiFi.js updateData");
+    fetch(address + "/scan", {
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: state.auth.user,
+        password: state.auth.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log("res: ", res);
+        if (res.message === "No Networks found") {
+          updateFound(false);
+        } else {
+          updateLinesArr(res.networks);
+          updateFound(true);
+        }
+      })
+      .catch((error) => console.log("something failed", error));
+  }
+
   return {
     getData,
     saveData,
     reset,
     saveDHCP,
     selectNetworkLine,
+    scanWiFi,
     SSID: state.wifi.SSID,
     wifiPassword: state.wifi.wifiPassword,
     DHCP: state.wifi.DHCP,

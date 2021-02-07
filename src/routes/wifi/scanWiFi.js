@@ -1,10 +1,12 @@
 import { h, Fragment } from "preact";
 import { useState, useEffect } from "preact/hooks";
 import ScanWiFiLines from "./scanWiFiLines";
+import useWifi from "../../context/useWifi";
 
 const address = `http://${window.location.hostname}:${80}/wifi/scan`;
 
 function ScanWiFi() {
+  const { scanWiFi } = useWifi();
   const [found, updateFound] = useState(false);
   const [LinesArr, updateLinesArr] = useState([
     { SSID: "one", auth: true, signal: 5 },
@@ -13,6 +15,11 @@ function ScanWiFi() {
 
   useEffect(() => {
     // console.log("scanWiFi.js useEffect");
+    updateData();
+  }, []);
+
+  const updateData = () => {
+    console.log("scanWiFi.js updateData");
     fetch(address, {
       method: "post",
       headers: {
@@ -34,7 +41,13 @@ function ScanWiFi() {
         }
       })
       .catch((error) => console.log("something failed", error));
-  }, []);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // console.log("scanWiFi.js onSubmit");
+    updateData();
+  };
 
   return (
     <Fragment>
@@ -52,9 +65,11 @@ function ScanWiFi() {
       ) : (
         <p>NO WiFi networks Found</p>
       )}
-      <p class="submit">
-        <input type="submit" name="rescan" value="Scan Again" />
-      </p>
+      <form onSubmit={onSubmit}>
+        <p class="submit">
+          <input type="submit" name="rescan" value="Scan Again" />
+        </p>
+      </form>
     </Fragment>
   );
 }
