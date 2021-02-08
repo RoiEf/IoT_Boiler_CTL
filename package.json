@@ -27,6 +27,7 @@
     "preact-router": "^3.2.1"
   },
   "devDependencies": {
+    "inliner": "^1.13.1",
     "microbundle": "^0.12.3",
     "sirv-cli": "^0.4.6"
   }
