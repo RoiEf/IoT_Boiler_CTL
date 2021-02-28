@@ -18,6 +18,7 @@
   "source": "src/index.js",
   "scripts": {
     "build": "microbundle -f modern --no-sourcemap --external none -o build/bundle.js",
+    "postbuild": "inliner.exe -i build/index.html -o html.h -ahg",
     "dev": "npm run -s build_dev & npm run -s serve",
     "build_dev": "microbundle -f modern --external none -o build_dev/bundle.js --watch",
     "serve": "sirv build_dev -Dc"
