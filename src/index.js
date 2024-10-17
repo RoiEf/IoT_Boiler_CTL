@@ -26,7 +26,7 @@ const App = () => {
     <StateContextProvider>
       {/* <BasicContextProvider> */}
       <div id="app">
-        {/* <Header isAutenticated={isAutenticated} /> */}
+        {/* <Header isAuthenticated={isAuthenticated} /> */}
         <Header />
         <Router>
           <Home path="/" />
